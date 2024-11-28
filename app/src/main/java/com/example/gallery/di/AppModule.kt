@@ -15,11 +15,10 @@ import javax.inject.Singleton
 object AppModule {
     @Provides
     @Singleton
-    fun providesApiServices(okHttpClient: OkHttpClient): ApiService {
+    fun provideApiService(): ApiService {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("https://jsonplaceholder.typicode.com/")
-            .client(okHttpClient)
             .build()
             .create(ApiService::class.java)
     }

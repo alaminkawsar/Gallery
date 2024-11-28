@@ -8,12 +8,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.gallery.presentation.components.PhotoCard
 
 @Composable
 fun GalleryScreenUI(
-    navController : NavController
+    navController : NavController,
+    galleryViewModel: GalleryViewModel = hiltViewModel()
 ) {
     LazyColumn(
         horizontalAlignment = Alignment.Start,
