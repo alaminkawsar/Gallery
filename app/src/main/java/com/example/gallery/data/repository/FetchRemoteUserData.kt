@@ -17,8 +17,10 @@ class FetchRemoteUserData @Inject constructor(
         try {
             val userListDto = remoteDbRepo.getUsers()
             val userList = userListDto.map { it.toUser() }
+            emit(Resource.Success(userList))
         } catch (e: HttpException) {
             Log.d("UserData", "${e.message}")
+            emit(Resource.Error("err"))
         }
     }
 }
