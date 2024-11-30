@@ -19,17 +19,6 @@
             android:enabled="true"
             android:exported="false" />
 
-<!--        <receiver-->
-<!--            android:name=".presentation.service.DataSyncReceiver"-->
-<!--            android:enabled="true"-->
-<!--            android:exported="true"-->
-<!--            android:permission="TODO"-->
-<!--            tools:ignore="ExportedReceiver">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="com.example.gallery.DATA_SYNC" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
-
         <activity
             android:name=".MainActivity"
             android:exported="true"
