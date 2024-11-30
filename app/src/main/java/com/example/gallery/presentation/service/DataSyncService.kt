@@ -8,7 +8,6 @@ import com.example.gallery.domain.usecase.PhotosUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,19 +24,18 @@ class DataSyncService: Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val data = photosUseCase.fetchCombineData().first().data?: emptyList()
-                Log.d("DataSyncService", "$data")
-                // Send the data back to the receiver (GalleryViewModel)
-//                val broadcastIntent = Intent("com.example.gallery.DATA_SYNC")
-//                val arrayList = ArrayList(data.map { it })
-//                broadcastIntent.putExtra("data", arrayList)
-//                sendBroadcast(broadcastIntent) // Broadcast the intent
+                val data = photosUseCase.fetchAndSaveRemoteData().first().data?: "Can't fetch data"
+                Log.d("DataSyncService", data)
+                val broadcastIntent = Intent("com.example.gallery.DATA_SYNC")
+                broadcastIntent.putExtra("data", data)
+                sendBroadcast(broadcastIntent) // Broadcast the intent
+
             } catch (e: Exception) {
                 e.printStackTrace()
-                Log.d("DataSyncService", "${e.message}")
+//                Log.d("DataSyncService", "${e.message}")
 
             } finally {
-                Log.d("DataSyncService", "stop service")
+//                Log.d("DataSyncService", "stop service")
                 stopSelf()
             }
         }

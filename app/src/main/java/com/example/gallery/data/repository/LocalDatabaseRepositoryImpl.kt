@@ -11,11 +11,19 @@ import kotlinx.coroutines.flow.map
 class LocalDatabaseRepositoryImpl(
     private val dao: PhotoDao
 ) : LocalDatabaseRepository {
-    override fun getPhotos(): Flow<List<PhotoDataModel>> =
+    override suspend fun isDataExists(): Boolean {
+        return dao.isTableNotEmpty()
+    }
+
+    override suspend fun getAllPhoto(): Flow<List<PhotoDataModel>> =
         dao.getPhotos().map { items -> items.map { item -> item.toPhotoDataModel() }
     }
 
-    override suspend fun addPhotos(photoDataModels: List<PhotoDataModel>) {
+    override suspend fun addPhoto(photoDataModel: PhotoDataModel) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun addAllPhoto(photoDataModels: List<PhotoDataModel>) {
         val photos = photoDataModels.map {
             PhotoModel(
                 photoTitle = it.photoTitle,
@@ -26,6 +34,14 @@ class LocalDatabaseRepositoryImpl(
             )
         }
         dao.insertAll(photos)
+    }
+
+    override suspend fun deletePhoto() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteAllPhoto() {
+        TODO("Not yet implemented")
     }
 
 }

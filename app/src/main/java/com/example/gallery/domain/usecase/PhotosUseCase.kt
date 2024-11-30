@@ -1,6 +1,5 @@
 package com.example.gallery.domain.usecase
 
-import android.util.Log
 import com.example.gallery.domain.model.PhotoDataModel
 import com.example.gallery.utils.Resource
 import kotlinx.coroutines.async
@@ -14,10 +13,14 @@ import javax.inject.Inject
 class PhotosUseCase @Inject constructor(
     private val dbUseCase: DatabaseUseCase
 ) {
-    fun fetchCombineData(): Flow<Resource<List<PhotoDataModel>>> = flow {
+    fun fetchAndSaveRemoteData(): Flow<Resource<String>> = flow {
         // check first local db
-
         coroutineScope {
+            if (dbUseCase.localdb.isDataExists()) {
+                val allPhotos = dbUseCase.localdb.getAllPhoto().first()
+                emit(Resource.Success("Already Exist"))
+                return@coroutineScope
+            }
             // Execute API calls in parallel
             val userDeferred = async { dbUseCase.fetchRemoteUserData().first().data ?: emptyList() }
             val photoDeferred = async { dbUseCase.fetchRemotePhoto().first().data ?: emptyList() }
@@ -34,11 +37,23 @@ class PhotosUseCase @Inject constructor(
                     photoUrl = it.photoUrl
                 )
             }
-            // make new gallery
-            Log.d("PhotosUseCase-1", "$photoList")
-            emit(Resource.Success(photoList))
+            dbUseCase.localdb.addAllPhoto(photoList) // save database in local storage
+            emit(Resource.Success("Successfully Saved In Local"))
         }
     }.catch {
-        Log.d("PhotoUseCase-2", "${it.message}")
+//        Log.d("PhotoUseCase", "${it.message}")
     }
+
+    fun getPhotosData(): Flow<Resource<List<PhotoDataModel>>> = flow {
+        coroutineScope {
+            emit(Resource.Loading())
+            try {
+                val photos = dbUseCase.localdb.getAllPhoto().first()
+                emit(Resource.Success(photos))
+            } catch (e: Exception) {
+                emit(Resource.Error("Something Wrong"))
+            }
+        }
+    }
+
 }
