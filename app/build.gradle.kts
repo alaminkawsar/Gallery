@@ -91,6 +91,10 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")    // Retrofit JSON converter (Gson)
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3") // Logging interceptor for debugging
 
+    //use coil library for showing image
+    implementation("io.coil-kt.coil3:coil-compose:3.0.4")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.4")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

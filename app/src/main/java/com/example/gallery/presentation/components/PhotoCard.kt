@@ -1,13 +1,11 @@
 package com.example.gallery.presentation.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -24,17 +22,17 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.gallery.R
+import coil3.compose.AsyncImage
 import com.example.gallery.ui.theme.GalleryTheme
 
 @Composable
 fun PhotoCard(
     photoTitle: String,
     albumName: String,
-    userName: String
+    userName: String,
+    thumbnailUrl: String
 ) {
     Card(
         modifier = Modifier
@@ -51,16 +49,21 @@ fun PhotoCard(
             // Image with specified region
             Box(
                 modifier = Modifier
-                    .size(80.dp) // Adjust size as needed
+                    .size(70.dp) // Adjust size as needed
                     .clip(RectangleShape) // Crop into a rectangle (you can use CircleShape or others)
                     .background(Color.Gray) // Background for previewing
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.cat),
-                    contentDescription = "cat",
-                    contentScale = ContentScale.Crop, // Ensures the content is cropped
-                    modifier = Modifier.fillMaxSize()
+                AsyncImage(
+                    model = thumbnailUrl,
+                    contentScale = ContentScale.Crop,
+                    contentDescription = null,
                 )
+//                Image(
+//                    painter = painterResource(id = R.drawable.cat),
+//                    contentDescription = "cat",
+//                    contentScale = ContentScale.Crop, // Ensures the content is cropped
+//                    modifier = Modifier.fillMaxSize()
+//                )
             }
             Spacer(modifier = Modifier.width(30.dp))
 
@@ -94,7 +97,7 @@ fun PhotoCard(
 @Composable
 fun PhotoCardPreview() {
     GalleryTheme {
-        PhotoCard(photoTitle = "A Mew Cat", albumName = "Cats", userName = "Al-Amin Kawsar")
+        PhotoCard(photoTitle = "A Mew Cat", albumName = "Cats", userName = "Al-Amin Kawsar", thumbnailUrl = "")
     }
 
 }

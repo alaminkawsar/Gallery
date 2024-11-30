@@ -80,7 +80,8 @@ fun GalleryScreenUI(
                             PhotoCard(
                                 photoTitle = it.photoTitle,
                                 albumName = it.albumName,
-                                userName = it.userName
+                                userName = it.userName,
+                                thumbnailUrl = it.thumbnailUrl
                             )
                         }
                     }
