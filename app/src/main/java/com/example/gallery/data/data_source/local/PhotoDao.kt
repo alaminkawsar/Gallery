@@ -9,7 +9,11 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PhotoDao {
-    @Query("SELECT * FROM PhotoModel ORDER BY uid DESC LIMIT 10")
+
+    @Query("SELECT EXISTS(SELECT 1 FROM PhotoModel LIMIT 1)")
+    suspend fun isTableNotEmpty(): Boolean
+
+    @Query("SELECT * FROM PhotoModel ORDER BY uid DESC")
     fun getPhotos(): Flow<List<PhotoModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
