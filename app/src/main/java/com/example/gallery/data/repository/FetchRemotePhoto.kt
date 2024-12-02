@@ -24,7 +24,7 @@ class FetchRemotePhoto @Inject constructor(
             val photoList = photoListDto.map { it.toPhoto()}
             emit(Resource.Success(photoList))
         } catch (e: IOException) {
-            Log.e("NetworkError", "No internet connection")
+//            Log.e("NetworkError", "No internet connection")
             emit(Resource.Error(NetworkError.CONNECTION_ERROR))
         } catch (e: HttpException) {
             emit(Resource.Error(NetworkError.UNKNOWN_ERROR))

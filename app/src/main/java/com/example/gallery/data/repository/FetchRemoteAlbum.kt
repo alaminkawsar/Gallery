@@ -20,8 +20,6 @@ class FetchRemoteAlbum @Inject constructor(
         try {
             val albumListDto = remoteDbRepo.getAlbums()
             val albumList = albumListDto.map { it.toAlbum() }
-            Log.d("UserData", "$albumList")
-
             emit(Resource.Success(albumList))
         } catch (e: IOException) {
 //            Log.e("NetworkError", "No internet connection")
