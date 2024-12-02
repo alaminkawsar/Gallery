@@ -14,8 +14,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -24,7 +26,14 @@ object AppModule {
     @Provides
     @Singleton
     fun provideRemoteDatabaseRepository(): RemoteDatabaseRepository {
+        val okHttpClient = OkHttpClient.Builder()
+            .connectTimeout(10, TimeUnit.SECONDS) // Connection timeout
+            .readTimeout(10, TimeUnit.SECONDS)    // Read timeout
+            .writeTimeout(10, TimeUnit.SECONDS)   // Write timeout
+            .build()
+
         return Retrofit.Builder()
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("https://jsonplaceholder.typicode.com/")
             .build()
