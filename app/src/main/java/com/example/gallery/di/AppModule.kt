@@ -1,6 +1,8 @@
 package com.example.gallery.di
 
+import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.example.gallery.data.data_source.local.AppDatabase
 import com.example.gallery.data.repository.FetchRemoteAlbum
@@ -23,6 +25,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+    @Provides
+    @Singleton
+    fun providesSharedPreference(application: Application): SharedPreferences {
+        return application.getSharedPreferences("database_sync", Context.MODE_PRIVATE)
+    }
     @Provides
     @Singleton
     fun provideRemoteDatabaseRepository(): RemoteDatabaseRepository {

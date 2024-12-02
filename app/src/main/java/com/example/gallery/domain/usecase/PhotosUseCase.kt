@@ -38,7 +38,6 @@ class PhotosUseCase @Inject constructor(
                     photoUrl = it.photoUrl
                 )
             }
-            Log.d("PhotosUseCase", "$photoList")
             dbUseCase.localdb.addAllPhoto(photoList) // save database in local storage
             emit(Resource.Success("Successfully Saved In Local"))
         }
@@ -52,6 +51,17 @@ class PhotosUseCase @Inject constructor(
             try {
                 val photos = dbUseCase.localdb.getAllPhoto().first()
                 emit(Resource.Success(photos))
+            } catch (e: Exception) {
+                emit(Resource.Error("Something Wrong"))
+            }
+        }
+    }
+    fun deletePhotosData(): Flow<Resource<String>> = flow {
+        coroutineScope {
+            emit(Resource.Loading())
+            try {
+                dbUseCase.localdb.deleteAllPhoto()
+                emit(Resource.Success("Success"))
             } catch (e: Exception) {
                 emit(Resource.Error("Something Wrong"))
             }

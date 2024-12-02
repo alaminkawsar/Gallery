@@ -41,7 +41,7 @@ class LocalDatabaseRepositoryImpl(
     }
 
     override suspend fun deleteAllPhoto() {
-        TODO("Not yet implemented")
+        dao.clearAllPhotos()
     }
 
 }

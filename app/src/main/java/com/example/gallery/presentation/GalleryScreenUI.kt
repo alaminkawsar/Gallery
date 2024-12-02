@@ -1,11 +1,17 @@
 package com.example.gallery.presentation
 
+import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -13,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.gallery.presentation.components.CustomTopAppBar
@@ -42,20 +49,19 @@ fun GalleryScreenUI(
         }
     }
     Scaffold(
+        scaffoldState = scaffoldState,
         topBar = {
-            CustomTopAppBar() {
+            CustomTopAppBar(navBack = {
                 navController.popBackStack()
+            }) {
+                galleryViewModel.onEvent(GalleryEvent.ClearButtonClick)
             }
         }
     ) {
-        if (galleryViewModel.isDatabaseSyncing.value or galleryViewModel.isPhotosDataLoading.value) {
+        if (galleryViewModel.isProgressLoading.value) {
             CustomProgressMessage(
-                header = "Please Wait",
-                description = if (galleryViewModel.isDatabaseSyncing.value) {
-                    "Database Syncing"
-                } else {
-                    "Loading Photo"
-                }
+                header = galleryViewModel.progressHeaderMessage.value,
+                description = galleryViewModel.progressDescriptionMessage.value
             )
         } else {
             if (galleryViewModel.photosData.value.isEmpty()) {
@@ -63,10 +69,22 @@ fun GalleryScreenUI(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(
-                        text = "No photo available to show",
-                        color = Color.Gray
-                    )
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        Text(
+                            text = "No photo available to show",
+                            color = Color.Gray
+                        )
+                        Spacer(modifier = Modifier.width(50.dp))
+                        Button(onClick = {
+                            galleryViewModel.onEvent(GalleryEvent.TryAgainButtonClick)
+                        }) {
+                            Text(text = "Try Again")
+                        }
+                    }
+
                 }
             } else {
                 LazyColumn(
