@@ -53,7 +53,7 @@ fun CustomTopAppBar(
                 Text(
                     text = "Photos",
                     fontWeight = FontWeight.Bold,
-                    fontSize = 30.sp,
+                    fontSize = 20.sp,
                     color = Color.Black
                 )
             }
