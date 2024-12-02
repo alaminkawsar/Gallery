@@ -27,9 +27,9 @@ object AppModule {
     @Singleton
     fun provideRemoteDatabaseRepository(): RemoteDatabaseRepository {
         val okHttpClient = OkHttpClient.Builder()
-            .connectTimeout(10, TimeUnit.SECONDS) // Connection timeout
-            .readTimeout(10, TimeUnit.SECONDS)    // Read timeout
-            .writeTimeout(10, TimeUnit.SECONDS)   // Write timeout
+            .connectTimeout(5, TimeUnit.SECONDS) // Connection timeout
+            .readTimeout(5, TimeUnit.SECONDS)    // Read timeout
+            .writeTimeout(5, TimeUnit.SECONDS)   // Write timeout
             .build()
 
         return Retrofit.Builder()
