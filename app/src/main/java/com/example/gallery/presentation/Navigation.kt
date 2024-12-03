@@ -9,10 +9,7 @@ import com.example.gallery.utils.ROOT_ROUTE
 import com.example.gallery.utils.Screen
 
 fun NavGraphBuilder.appNavigation(navController: NavController) {
-    navigation(startDestination = Screen.HomeScreen.route, route = MAIN) {
-        composable(route = Screen.HomeScreen.route) {
-            HomeScreenUI(navController = navController)
-        }
+    navigation(startDestination = Screen.GalleryScreen.route, route = MAIN) {
         composable(route = Screen.GalleryScreen.route) {
             GalleryScreenUI(navController = navController)
         }

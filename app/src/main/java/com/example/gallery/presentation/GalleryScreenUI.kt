@@ -51,9 +51,7 @@ fun GalleryScreenUI(
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
-            CustomTopAppBar(navBack = {
-                navController.popBackStack()
-            }) {
+            CustomTopAppBar() {
                 galleryViewModel.onEvent(GalleryEvent.ClearButtonClick)
             }
         }

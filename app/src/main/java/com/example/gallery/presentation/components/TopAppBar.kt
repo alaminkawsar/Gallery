@@ -1,6 +1,5 @@
 package com.example.gallery.presentation.components
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.DropdownMenu
@@ -38,10 +38,7 @@ import com.example.gallery.R
 import com.example.gallery.ui.theme.GalleryTheme
 
 @Composable
-fun CustomTopAppBar(
-    navBack: () -> Unit,
-    clearButton: () -> Unit
-) {
+fun CustomTopAppBar(clearButton: () -> Unit) {
     val iconSize = 25.dp
     val menuItem = listOf("Clear")
     var menuSelected = remember { mutableStateOf("") }
@@ -62,14 +59,12 @@ fun CustomTopAppBar(
                 .fillMaxWidth()
                 .background(Color.White)
         ) {
-            IconButton(onClick = { navBack() }) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_arrow_back_24),
-                    contentDescription = "Back Navigation",
-                    modifier = Modifier.size(iconSize)
-                )
-            }
-            Row(modifier = Modifier.fillMaxWidth(0.7f)) {
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(0.7f)
+                    .padding(start = 10.dp)
+            ) {
                 Text(
                     text = "Photos",
                     fontWeight = FontWeight.Bold,
@@ -121,7 +116,7 @@ fun CustomTopAppBar(
 @Composable
 fun TopAppBar() {
     GalleryTheme {
-        CustomTopAppBar(navBack = {}) {
+        CustomTopAppBar() {
 
         }
     }
