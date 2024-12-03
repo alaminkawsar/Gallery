@@ -1,6 +1,5 @@
 package com.example.gallery.presentation
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,11 +18,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.gallery.presentation.components.CustomTopAppBar
 import com.example.gallery.presentation.components.PhotoCard
+import com.example.gallery.utils.TestTag
 import com.example.gallery.utils.UIEvent
 import com.example.gallery.utils.components.CustomProgressMessage
 
@@ -73,12 +74,16 @@ fun GalleryScreenUI(
                     ) {
                         Text(
                             text = "No photo available to show",
-                            color = Color.Gray
+                            color = Color.Gray,
+                            modifier = Modifier.testTag(TestTag.NO_PHOTO)
                         )
                         Spacer(modifier = Modifier.width(50.dp))
-                        Button(onClick = {
-                            galleryViewModel.onEvent(GalleryEvent.TryAgainButtonClick)
-                        }) {
+                        Button(
+                            onClick = {
+                                galleryViewModel.onEvent(GalleryEvent.TryAgainButtonClick)
+                            },
+                            modifier = Modifier.testTag(TestTag.TRY_AGAIN_BUTTON)
+                        ) {
                             Text(text = "Try Again")
                         }
                     }
@@ -87,7 +92,9 @@ fun GalleryScreenUI(
             } else {
                 LazyColumn(
                     horizontalAlignment = Alignment.Start,
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .testTag(TestTag.SCROLL_VIEW),
                     contentPadding = it
                 ) {
 

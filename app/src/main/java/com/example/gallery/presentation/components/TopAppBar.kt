@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import com.example.gallery.R
 import com.example.gallery.ui.theme.GalleryTheme
+import com.example.gallery.utils.TestTag
 
 @Composable
 fun CustomTopAppBar(clearButton: () -> Unit) {
@@ -82,9 +84,9 @@ fun CustomTopAppBar(clearButton: () -> Unit) {
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_more_ver_dot_24),
-                        contentDescription = "Edit something",
+                        contentDescription = "menu",
                         tint = Color.Black,
-                        modifier = Modifier.size(iconSize)
+                        modifier = Modifier.size(iconSize).testTag(TestTag.MENU_BUTTON)
                     )
                 }
                 DropdownMenu(
@@ -92,6 +94,7 @@ fun CustomTopAppBar(clearButton: () -> Unit) {
                     onDismissRequest = { expanded = false },
                     modifier = Modifier
                         .width(with(LocalDensity.current) { (size.width / 2f).toDp() }) // Match width with TextField
+                        .testTag(TestTag.CLEAR_BUTTON)
                 ) {
                     menuItem.forEach {
                         DropdownMenuItem(onClick = {
@@ -99,7 +102,7 @@ fun CustomTopAppBar(clearButton: () -> Unit) {
                             expanded = false
                             clearButton()
                         }) {
-                            androidx.compose.material.Text(text = it)
+                            Text(text = it)
                         }
                     }
                 }
