@@ -95,11 +95,21 @@ dependencies {
     implementation("io.coil-kt.coil3:coil-compose:3.0.4")
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.4")
 
+    // test dependencies
+    testImplementation ("org.mockito:mockito-core:4.5.1")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation ("junit:junit:4.13.2")
+    testImplementation ("org.mockito:mockito-inline:4.5.1")
+    testImplementation ("org.jetbrains.kotlin:kotlin-test-junit")
+    testImplementation ("org.mockito.kotlin:mockito-kotlin:4.1.0")
+
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
