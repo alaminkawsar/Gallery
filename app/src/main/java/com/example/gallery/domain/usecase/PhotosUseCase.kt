@@ -1,6 +1,5 @@
 package com.example.gallery.domain.usecase
 
-import android.util.Log
 import com.example.gallery.domain.model.PhotoDataModel
 import com.example.gallery.utils.Resource
 import kotlinx.coroutines.async

@@ -1,6 +1,5 @@
 package com.example.gallery.data.repository
 
-import android.util.Log
 import com.example.gallery.data.model.toPhoto
 import com.example.gallery.domain.model.Photo
 import com.example.gallery.domain.repository.RemoteDatabaseRepository
@@ -10,7 +9,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
-import java.net.SocketTimeoutException
 import java.util.concurrent.TimeoutException
 import javax.inject.Inject
 

@@ -1,6 +1,5 @@
 package com.example.gallery.data.repository
 
-import android.util.Log
 import com.example.gallery.data.model.toAlbum
 import com.example.gallery.domain.model.Album
 import com.example.gallery.domain.repository.RemoteDatabaseRepository

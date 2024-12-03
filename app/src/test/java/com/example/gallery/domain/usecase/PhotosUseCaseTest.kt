@@ -1,6 +1,5 @@
 package com.example.gallery.domain.usecase
 
-import android.util.Log
 import com.example.gallery.data.repository.FakeLocalDatabaseRepository
 import com.example.gallery.data.repository.FetchRemoteAlbum
 import com.example.gallery.data.repository.FetchRemotePhoto
@@ -13,7 +12,6 @@ import com.example.gallery.utils.Resource
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
