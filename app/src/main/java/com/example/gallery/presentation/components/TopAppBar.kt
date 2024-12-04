@@ -102,7 +102,10 @@ fun CustomTopAppBar(clearButton: () -> Unit) {
                             expanded = false
                             clearButton()
                         }) {
-                            Text(text = it)
+                            Text(
+                                text = it,
+                                color = Color.Black
+                            )
                         }
                     }
                 }
