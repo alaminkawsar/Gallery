@@ -20,8 +20,12 @@ The app shows a list of photos with some information.
     - [x] Keep It Simple,Stupid (KISS)
     - [x] Don't Repeat Yourself (DRY)
     - [x] Separation of Concern (SoP)
-- [ ] Testing feature implemented
-  - [ ] UI Testing
-  - [ ] Unit Testing
 - [x] Coil library is used for Image showing
+- [x] Testing feature implemented
+  - [x] UI Testing with dagger hilt
+  - [x] Unit Testing with mocking library
+  
 ## Implementation Details
+### Architecture Overview:
+![img.png](img.png)
+
