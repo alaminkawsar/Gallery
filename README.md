@@ -1,5 +1,6 @@
 # Gallery App
 The app shows a list of photos with some information. 
+![app.gif](app.gif)
 ## The app feature covers the following topic:
 - [x] Jetpack compose is used for UI design.
 - [x] Data fetching from the server and store in local DB:
