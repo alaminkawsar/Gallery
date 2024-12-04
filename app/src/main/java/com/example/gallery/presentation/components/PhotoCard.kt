@@ -1,6 +1,7 @@
 package com.example.gallery.presentation.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,12 +33,14 @@ fun PhotoCard(
     photoTitle: String,
     albumName: String,
     userName: String,
-    thumbnailUrl: String
+    thumbnailUrl: String,
+    onClick:() -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
+            .clickable {onClick()}
             .shadow(4.dp, RoundedCornerShape(8.dp)),
         backgroundColor = Color.White
     ) {
@@ -97,7 +100,7 @@ fun PhotoCard(
 @Composable
 fun PhotoCardPreview() {
     GalleryTheme {
-        PhotoCard(photoTitle = "A Mew Cat", albumName = "Cats", userName = "Al-Amin Kawsar", thumbnailUrl = "")
+        PhotoCard(photoTitle = "A Mew Cat", albumName = "Cats", userName = "Al-Amin Kawsar", thumbnailUrl = "") {}
     }
 
 }

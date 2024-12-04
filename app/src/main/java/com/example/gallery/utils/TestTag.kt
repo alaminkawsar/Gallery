@@ -8,4 +8,5 @@ object TestTag {
     const val TRY_AGAIN_BUTTON = "TRY_AGAIN"
     const val TOAST_MESSAGE = "TOAST_MESSAGE"
     const val SCROLL_VIEW = "SCROLL_VIEW"
+    const val PHOTO_BACK_BUTTON = "PHOTO_BACK_BUTTON"
 }

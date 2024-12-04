@@ -1,5 +1,6 @@
 package com.example.gallery.presentation
 
+import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,6 +25,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.gallery.presentation.components.CustomTopAppBar
 import com.example.gallery.presentation.components.PhotoCard
+import com.example.gallery.utils.Screen
 import com.example.gallery.utils.TestTag
 import com.example.gallery.utils.UIEvent
 import com.example.gallery.utils.components.CustomProgressMessage
@@ -105,7 +107,9 @@ fun GalleryScreenUI(
                                 albumName = it.albumName,
                                 userName = it.userName,
                                 thumbnailUrl = it.thumbnailUrl
-                            )
+                            ) {
+                                navController.navigate(Screen.ImageShowScreen.withArgs(Uri.encode(it.photoUrl), Uri.encode(it.photoTitle)))
+                            }
                         }
                     }
                 }
