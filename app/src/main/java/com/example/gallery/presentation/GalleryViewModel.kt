@@ -44,8 +44,6 @@ class GalleryViewModel @Inject constructor(
     private val _progressHeaderMessage = mutableStateOf("Please wait")
     val progressHeaderMessage: State<String> = _progressHeaderMessage
 
-    private var _isDeleted = false
-
     private val _progressDescriptionMessage = mutableStateOf("Please wait")
     val progressDescriptionMessage: State<String> = _progressDescriptionMessage
 
@@ -78,14 +76,19 @@ class GalleryViewModel @Inject constructor(
             }
 
             GalleryEvent.ClearButtonClick -> {
-                deleteAllPhotos()
-                _isDeleted = true
+                if (_photosData.value.isEmpty()) {
+                    viewModelScope.launch {
+                        delay(1)
+                        _eventFlow.emit(UIEvent.ShowToastMessage("No photos are available"))
+                    }
+                } else {
+                    deleteAllPhotos()
+                }
             }
         }
     }
 
     private fun startDataSyncService() {
-        _isDeleted = false
         val isDatabaseSynced = Utilities.getFlag(preferences)
          printLog(isDatabaseSynced)
         if (isDatabaseSynced) {
@@ -124,7 +127,7 @@ class GalleryViewModel @Inject constructor(
                     }
 
                     is Resource.Loading -> {
-                        _isProgressLoading.value = true && (!_isDeleted)
+                        _isProgressLoading.value = true
                     }
 
                     is Resource.Success -> {
@@ -141,7 +144,7 @@ class GalleryViewModel @Inject constructor(
 
     private fun deleteAllPhotos() {
         Utilities.clearFlag(preferences)
-        printLog(Utilities.getFlag(preferences))
+//        printLog(Utilities.getFlag(preferences))
         _progressHeaderMessage.value = "Deleting Photos"
         _progressDescriptionMessage.value = ""
         viewModelScope.launch {
